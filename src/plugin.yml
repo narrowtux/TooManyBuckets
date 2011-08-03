@@ -1,0 +1,13 @@
+name: TooManyBuckets
+author: narrowtux
+main: com.narrowtux.toomanybuckets.TMBMain
+version: 0.1
+depends: [NarrowtuxLib]
+commands:
+    toomanybuckets:
+        aliases:
+            - 'tmb'
+            - 'tmi'
+            - 'toomanyitems'
+        usage: /<cmd>
+        permission: 'toomanybuckets.use'
