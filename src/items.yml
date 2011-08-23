@@ -1,18 +1,824 @@
-Apple:
-    type: 260
+Brick Block: 
+    amount: 64
+    indefaultview: false
     data: 0
+    type: 45
+Cooked Porkchop: 
     amount: 1
-Golden Apple:
-    type: 322
+    indefaultview: false
     data: 0
+    type: 320
+Cookie: 
+    amount: 8
+    indefaultview: false
+    data: 0
+    type: 357
+Netherrack: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 87
+Jukebox: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 84
+Diamond Pickaxe: 
     amount: 1
-Torch:
-    type: 50
-    amount: 50
+    indefaultview: false
     data: 0
-    indefaultview: true
-Diamond Pickaxe:
     type: 278
+Stone Axe: 
     amount: 1
+    indefaultview: false
     data: 0
-    indefaultview: true
+    type: 275
+Gold Hoe: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 294
+Slimeball: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 341
+Wooden Axe: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 271
+Paper: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 339
+Jack 'o' Lantern: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 91
+Bucket: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 325
+Apple: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 260
+Glowstone Block: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 89
+Leather Tunic: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 299
+Lava Bucket: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 327
+Sign: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 323
+Iron Hoe: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 292
+Sugar Cane: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 83
+Flint and Steel: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 259
+Bed: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 355
+
+##################
+# Wool Dye Start #
+##################
+Ink Sac: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 351
+#Todo!
+##################
+#  Wool Dye End  #
+##################
+Diamond Block: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 57
+Gold Shovel: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 284
+Leather: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 334
+Fishing Rod: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 346
+Redstone: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 331
+Crafting Table: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 58
+Leather Boots: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 301
+Gold Chestplate: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 315
+Bread: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 297
+Iron Block: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 42
+Detector Rail: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 28
+Diamond Boots: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 313
+Obsidian: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 49
+Dispenser: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 23
+Compass: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 345
+Wheat: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 296
+Fence: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 85
+Diamond Helmet: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 310
+Cake: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 354
+Stone Sword: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 272
+Stone Shovel: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 273
+Dirt: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 3
+Diamond Shovel: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 277
+Diamond Leggings: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 312
+Diamond Chestplate: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 311
+Wooden Stairs: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 53
+Iron Axe: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 258
+##################
+#  Leaves Start  #
+##################
+Leaves: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 18
+##################
+#   Leaves End   #
+##################
+Raw Fish: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 349
+Iron Chestplate: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 307
+Bone: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 352
+Cactus: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 81
+Snowball: 
+    amount: 16
+    indefaultview: false
+    data: 0
+    type: 332
+Gold Leggings: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 316
+String: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 287
+Stone Button: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 77
+Flint: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 318
+Dandelion: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 37
+Moss Stone: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 48
+Bookshelf: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 47
+Sugar: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 353
+Milk Bucket: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 335
+Wooden Pressure Plate: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 72
+Cobblestone: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 4
+Minecart with Furnace: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 343
+Gold Axe: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 286
+Powered Rail: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 27
+Diamond Hoe: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 293
+Saddle: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 329
+Gold Block: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 41
+Wooden Sword: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 268
+Green Music Disc: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 2257
+Soul Sand: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 88
+Sandstone: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 24
+Stick: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 280
+Glowstone Dust: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 348
+Diamond Axe: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 279
+Clock: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 347
+Golden Apple: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 322
+Boat: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 333
+Gold Ingot: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 266
+Stone Pressure Plate: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 70
+Trapdoor: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 96
+Stone Double Slab: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 43
+Sandstone Double Slab: 
+    amount: 64
+    indefaultview: false
+    data: 1
+    type: 43
+Wooden Double Slab: 
+    amount: 64
+    indefaultview: false
+    data: 2
+    type: 43
+Cobblestone Double Slab: 
+    amount: 64
+    indefaultview: false
+    data: 3
+    type: 43
+Egg: 
+    amount: 16
+    indefaultview: false
+    data: 0
+    type: 344
+Sugar Canes: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 338
+Torch: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 50
+Brown Mushroom: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 39
+Lapis Lazuli Block: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 22
+Seeds: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 295
+Iron Door: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 330
+Redstone Torch: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 75
+Pumpkin: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 86
+Stone Pickaxe: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 274
+Wooden Shovel: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 269
+Book: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 340
+Mushroom Soup: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 282
+Sticky Piston: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 29
+Raw Porkchop: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 319
+Iron Leggings: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 308
+Iron Shovel: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 256
+Clay Block: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 82
+Wooden Planks: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 5
+Iron Pickaxe: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 257
+Gravel: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 13
+Rails: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 66
+Snow: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 78
+Ladders: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 65
+Glass: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 20
+Gold Boots: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 317
+Gold Pickaxe: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 285
+Bowl: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 281
+Feather: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 288
+Note Block: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 25
+Minecart: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 328
+Iron Ingot: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 265
+Rose: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 38
+Red Mushroom: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 40
+Map: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 358
+Wood: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 17
+Sapling: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 6
+Gold Ore: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 14
+Wool: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 35
+Brick: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 336
+Water Bucket: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 326
+Redstone Repeater: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 356
+Sponge: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 19
+Iron Sword: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 267
+Stone Hoe: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 291
+Wooden Door: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 324
+Arrow: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 262
+Piston: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 33
+Shears: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 359
+Coal: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 263
+Chest: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 54
+Leather Cap: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 298
+Iron Helmet: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 306
+Gold Helmet: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 314
+Diamond Sword: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 276
+Wooden Pickaxe: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 270
+TNT: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 46
+Cooked Fish: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 350
+Sand: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 12
+Furnace: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 61
+Diamond: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 264
+Stone Slab: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 44
+Clay: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 337
+Gunpowder: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 289
+Cobblestone Stairs: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 67
+Bow: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 261
+Minecart with Chest: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 342
+Wooden Hoe: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 290
+Lever: 
+    amount: 64
+    indefaultview: false
+    data: 0
+    type: 69
+Painting: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 321
+Gold Sword: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 283
+Iron Boots: 
+    amount: 1
+    indefaultview: false
+    data: 0
+    type: 309

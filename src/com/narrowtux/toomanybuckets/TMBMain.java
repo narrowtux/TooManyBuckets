@@ -1,9 +1,15 @@
 package com.narrowtux.toomanybuckets;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,6 +31,7 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 import org.yaml.snakeyaml.Yaml;
 
+import com.narrowtux.Utils.FileUtils;
 import com.narrowtux.toomanybuckets.gui.TMBMainScreen;
 import com.narrowtux.toomanybuckets.listeners.CommandListener;
 import com.narrowtux.toomanybuckets.listeners.TMBSpoutContribListener;
@@ -51,6 +58,7 @@ public class TMBMain extends JavaPlugin{
 	public void onEnable() {
 		instance = this;
 		log = Logger.getLogger("Minecraft");
+		checkForLibs();
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvent(Type.CUSTOM_EVENT, screenListener, Priority.Normal, this);
 		pm.registerEvent(Type.CUSTOM_EVENT, spoutListener, Priority.Normal, this);
@@ -60,6 +68,47 @@ public class TMBMain extends JavaPlugin{
 		load();
 	}
 	
+	private void checkForLibs() {
+		PluginManager pm = getServer().getPluginManager();
+		if(pm.getPlugin("NarrowtuxLib")==null){
+			try{
+				File toPut = new File("plugins/NarrowtuxLib.jar");
+				download(getServer().getLogger(), new URL("http://tetragaming.com/narrowtux/plugins/NarrowtuxLib.jar"), toPut);
+				pm.loadPlugin(toPut);
+				pm.enablePlugin(pm.getPlugin("NarrowtuxLib"));
+			} catch (Exception exception){
+				log.severe("[Showcase] could not load NarrowtuxLib, try again or install it manually.");
+				pm.disablePlugin(this);
+			}
+		}
+	}
+	
+	public static void download(Logger log, URL url, File file) throws IOException {
+	    if (!file.getParentFile().exists())
+	        file.getParentFile().mkdir();
+	    if (file.exists())
+	        file.delete();
+	    file.createNewFile();
+	    final int size = url.openConnection().getContentLength();
+	    log.info("Downloading " + file.getName() + " (" + size / 1024 + "kb) ...");
+	    final InputStream in = url.openStream();
+	    final OutputStream out = new BufferedOutputStream(new FileOutputStream(file));
+	    final byte[] buffer = new byte[1024];
+	    int len, downloaded = 0, msgs = 0;
+	    final long start = System.currentTimeMillis();
+	    while ((len = in.read(buffer)) >= 0) {
+	        out.write(buffer, 0, len);
+	        downloaded += len;
+	        if ((int)((System.currentTimeMillis() - start) / 500) > msgs) {
+	            log.info((int)((double)downloaded / (double)size * 100d) + "%");
+	            msgs++;
+	        }
+	    }
+	    in.close();
+	    out.close();
+	    log.info("Download finished");
+	}
+
 	private void createDataFolder() {
 		if(!getDataFolder().exists()){
 			getDataFolder().mkdir();
@@ -70,6 +119,12 @@ public class TMBMain extends JavaPlugin{
 	private void load() {
 			Yaml yaml = new Yaml();
 			File infoFile = new File(getDataFolder(), "items.yml");
+			if(!infoFile.exists()){
+				try {
+					FileUtils.copyFromJarToDisk("items.yml", this, getFile());
+				} catch (IOException e) {
+				}
+			}
 			if(infoFile.exists()){
 				try {
 					FileReader reader = new FileReader(infoFile);
@@ -111,11 +166,30 @@ public class TMBMain extends JavaPlugin{
 				} catch (FileNotFoundException e) {} 
 				catch (IOException e) {}
 			} else {
-				doLog("You need the items.yml file to use TooManyBuckets.");
+				doLog("You need the items.yml file to use TooManyBuckets. Generating a (very) default one.");
+				HashMap<String, Object> itemData = new HashMap<String, Object>();
+				for(Material m:Material.values()){
+					HashMap<String, Object> item = new HashMap<String, Object>();
+					item.put("type", m.getId());
+					item.put("data", 0);
+					item.put("amount", 64);
+					item.put("indefaultview", false);
+					String name = SpoutManager.getItemManager().getItemName(m, (short) 0);
+					if(name==null)
+						name = m.toString();
+					itemData.put(name, item);
+				}
+				FileWriter writer;
+				try {
+					writer = new FileWriter(infoFile);
+					yaml.dump(itemData, writer);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 	}
 
-	private void doLog(String string) {
+	public void doLog(String string) {
 		log.log(Level.INFO,"[TooManyBuckets] "+string);
 	}
 
@@ -173,5 +247,9 @@ public class TMBMain extends JavaPlugin{
 	
 	public List<ItemInfo> getDefaultView(){
 		return Collections.unmodifiableList(defaultView);
+	}
+
+	public Configuration getConfig() {
+		return config;
 	}
 }
