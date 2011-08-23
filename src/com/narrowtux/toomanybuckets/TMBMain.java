@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
 import org.bukkit.inventory.ItemStack;
@@ -34,7 +35,7 @@ import org.yaml.snakeyaml.Yaml;
 import com.narrowtux.Utils.FileUtils;
 import com.narrowtux.toomanybuckets.gui.TMBMainScreen;
 import com.narrowtux.toomanybuckets.listeners.CommandListener;
-import com.narrowtux.toomanybuckets.listeners.TMBSpoutContribListener;
+import com.narrowtux.toomanybuckets.listeners.TMBPlayerListener;
 import com.narrowtux.toomanybuckets.listeners.TMBScreenListener;
 
 public class TMBMain extends JavaPlugin{
@@ -42,8 +43,8 @@ public class TMBMain extends JavaPlugin{
 	private Logger log;
 	private CommandListener cmdListener = new CommandListener(this);
 	private TMBScreenListener screenListener = new TMBScreenListener(this);
-	private TMBSpoutContribListener spoutListener = new TMBSpoutContribListener();
-	private Map<SpoutPlayer, TMBMainScreen> screens = new HashMap<SpoutPlayer, TMBMainScreen>();
+	private TMBPlayerListener playerListener = new TMBPlayerListener();
+	private Map<String, TMBMainScreen> screens = new HashMap<String, TMBMainScreen>();
 	private static TMBMain instance = null;
 	private List<ItemInfo> infos = new ArrayList<ItemInfo>();
 	private List<ItemInfo> defaultView = new ArrayList<ItemInfo>();
@@ -61,7 +62,8 @@ public class TMBMain extends JavaPlugin{
 		checkForLibs();
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvent(Type.CUSTOM_EVENT, screenListener, Priority.Normal, this);
-		pm.registerEvent(Type.CUSTOM_EVENT, spoutListener, Priority.Normal, this);
+		pm.registerEvent(Type.PLAYER_QUIT, playerListener, Priority.Normal, this);
+		pm.registerEvent(Type.PLAYER_KICK, playerListener, Priority.Normal, this);
 		sendDescription("enabled");
 		createDataFolder();
 		config = new Configuration();
@@ -213,9 +215,9 @@ public class TMBMain extends JavaPlugin{
 		if(player.hasPermission("toomanybuckets.use")){
 			TMBMainScreen screen = null;
 			if(!screens.containsKey(player)){
-				screens.put(player, new TMBMainScreen(player));
+				screens.put(player.getName(), new TMBMainScreen(player));
 			}
-			screen = screens.get(player);
+			screen = screens.get(player.getName());
 			screen.open();
 		} else {
 			player.sendMessage("You may not use TooManyBuckets");
@@ -251,5 +253,9 @@ public class TMBMain extends JavaPlugin{
 
 	public Configuration getConfig() {
 		return config;
+	}
+
+	public void removeScreen(Player player) {
+		removeScreen(screens.get(player.getName()));
 	}
 }
