@@ -9,9 +9,6 @@ public class TMBSpoutContribListener extends SpoutListener {
 
 	@Override
 	public void onServerTick(ServerTickEvent event) {
-		try{
-			ItemButton.onTick();
-		} catch(LinkageError e){}
 	}
 
 }

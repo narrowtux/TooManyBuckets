@@ -4,14 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.inventory.ItemStack;
+import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.gui.Button;
 import org.getspout.spoutapi.gui.GenericButton;
 import org.getspout.spoutapi.gui.GenericItemWidget;
 import org.getspout.spoutapi.gui.ItemWidget;
+import org.getspout.spoutapi.gui.RenderPriority;
 import org.getspout.spoutapi.gui.Screen;
+import org.getspout.spoutapi.inventory.ItemManager;
+
+import com.narrowtux.toomanybuckets.ItemInfo;
 
 public class ItemButton {
-	private ItemStack type;
+	private ItemInfo type;
 	private Button btn;
 	private Screen screen;
 	private ItemWidget itemWidget;
@@ -19,12 +24,12 @@ public class ItemButton {
 	@SuppressWarnings("unused")
 	private int x, y;
 	private boolean visible;
-	private boolean clickedThisTick = false;
-	public ItemButton(ItemStack type, Screen screen)
+	public ItemButton(ItemInfo type, Screen screen)
 	{
 		if(type == null)
 		{
-			type = new ItemStack(0);
+			type = new ItemInfo();
+			type.stack = new ItemStack(0);
 		}
 		this.type = type;
 		this.screen = screen;
@@ -34,8 +39,10 @@ public class ItemButton {
 	private void initWidgets() {
 		btn = new GenericButton();
 		btn.setHeight(20).setWidth(20);
-		itemWidget = new GenericItemWidget(type);
-		if(type.getType().isBlock()){
+		btn.setPriority(RenderPriority.High);
+		itemWidget = new GenericItemWidget(type.stack);
+		itemWidget.setPriority(RenderPriority.Normal);
+		if(type.stack.getType().isBlock()){
 			itemWidget.setWidth(8).setHeight(8).setDepth(8);
 		} else {
 			itemWidget.setWidth(1).setHeight(1).setDepth(1);
@@ -81,7 +88,7 @@ public class ItemButton {
 	}
 	
 	
-	public ItemStack getType(){
+	public ItemInfo getType(){
 		return type;
 	}
 	
@@ -93,9 +100,14 @@ public class ItemButton {
 		return screen;
 	}
 	
-	public void setType(ItemStack stack){
-		this.type = stack;
-		itemWidget.setTypeId(stack.getTypeId()).setData(stack.getDurability());
+	public void setType(ItemInfo info){
+		this.type = info;
+		itemWidget.setTypeId(info.stack.getTypeId()).setData(info.stack.getDurability());
+		if(info!=null){
+			btn.setTooltip(info.name);
+		} else {
+			btn.setTooltip("");
+		}	
 		itemWidget.setDirty(true);
 	}
 	
@@ -108,16 +120,4 @@ public class ItemButton {
 		return visible;
 	}
 	
-	public boolean isClickedThisTick(){
-		return false;/*
-		boolean tmp = clickedThisTick;
-		clickedThisTick = true;
-		return tmp;*/ //disable fix temporally
-	}
-	
-	public static void onTick(){
-		for(ItemButton button:instances.values()){
-			button.clickedThisTick = false;
-		}
-	}
 }

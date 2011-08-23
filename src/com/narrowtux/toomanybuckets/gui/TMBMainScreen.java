@@ -11,17 +11,19 @@ import org.bukkit.inventory.ItemStack;
 import org.getspout.spoutapi.gui.Button;
 import org.getspout.spoutapi.gui.GenericButton;
 import org.getspout.spoutapi.gui.GenericTextField;
+import org.getspout.spoutapi.gui.RenderPriority;
 import org.getspout.spoutapi.gui.TextField;
 import org.getspout.spoutapi.gui.Widget;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import com.narrowtux.Assistant.GenericWindow;
+import com.narrowtux.toomanybuckets.ItemInfo;
 import com.narrowtux.toomanybuckets.TMBMain;
 
 public class TMBMainScreen extends GenericWindow {
 	private SpoutPlayer player;
 	private TextField search;
-	private List<ItemStack> visibleItems = new ArrayList<ItemStack>();
+	private List<ItemInfo> visibleItems = new ArrayList<ItemInfo>();
 	private Button clearInventoryButton, clearSearchButton;
 	private Map<GridLocation, ItemButton> buttons = new HashMap<GridLocation, ItemButton>();
 	
@@ -40,19 +42,24 @@ public class TMBMainScreen extends GenericWindow {
 	public TMBMainScreen(SpoutPlayer player){
 		super("Too Many Buckets", player);
 		this.player = player;
+		visibleItems = TMBMain.getInstance().getDefaultView();
 		initScreen();
 	}
 	
 	private void initScreen() {
+		TMBMain plugin = TMBMain.getInstance();
 		search = new GenericTextField();
 		search.setX(getMarginLeft()).setY(getMarginTop()+25).setHeight(20).setWidth(185);
-		attachWidget(search);
+		attachWidget(plugin, search);
 		clearInventoryButton = new GenericButton(ChatColor.RED+"Clear Inventory");
 		clearInventoryButton.setX(getMarginLeft()+195).setY(search.getY()).setHeight(20).setWidth(185);
-		attachWidget(clearInventoryButton);
+		attachWidget(plugin, clearInventoryButton);
 		clearSearchButton = new GenericButton("X");
 		clearSearchButton.setWidth(20).setHeight(20).setX(getMarginLeft()+185-20).setY(search.getY());
-		attachWidget(clearSearchButton);
+		clearSearchButton.setPriority(RenderPriority.Low);
+		clearSearchButton.setTooltip("Clear search");
+		search.setTooltip("Search for an item");
+		attachWidget(plugin, clearSearchButton);
 		for(int y = 0;y<6;y++){
 			for(int x = 0;x<19;x++){
 				GridLocation loc = new GridLocation(x, y);
@@ -87,12 +94,8 @@ public class TMBMainScreen extends GenericWindow {
 	}
 
 	public void doSearch(String query) {
-		if(query.equals("")){
-			visibleItems.clear();
-		} else {
-			List<ItemStack> result = TMBMain.getSearchResult(query);
-			visibleItems = result;
-		}
+		List<ItemInfo> result = TMBMain.getSearchResult(query);
+		visibleItems = result;
 		refreshView();
 	}
 
@@ -107,10 +110,9 @@ public class TMBMainScreen extends GenericWindow {
 			doSearch("");
 		}
 		ItemButton ibtn = ItemButton.getByButton(button);
-		if(ibtn!=null&&!ibtn.isClickedThisTick())
+		if(ibtn!=null)
 		{
-			ItemStack stack = ibtn.getType().clone();
-			stack.setAmount(64); //TODO: Gain correct stack size values!
+			ItemStack stack = ibtn.getType().stack.clone();
 			player.getInventory().addItem(stack);
 		}
 	}
@@ -118,23 +120,27 @@ public class TMBMainScreen extends GenericWindow {
 	public void refreshView(){
 		int i = 0;
 		for(ItemButton button:buttons.values()){
-			ItemStack stack = getStack(i);
-			if(stack==null)
+			ItemInfo info = getInfo(i);
+			if(info==null)
 			{
 				button.setVisible(false);
 			} else {
 				button.setVisible(true);
-				button.setType(stack);
+				button.setType(info);
 			}
 			i++;
 		}
 	}
 	
-	public ItemStack getStack(int i){
+	public ItemInfo getInfo(int i){
 		if(visibleItems.size()>i){
 			return visibleItems.get(i);
 		} else {
 			return null;
 		}
+	}
+
+	public void handleClose() {
+		
 	}
 }

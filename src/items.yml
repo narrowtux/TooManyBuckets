@@ -1,0 +1,18 @@
+Apple:
+    type: 260
+    data: 0
+    amount: 1
+Golden Apple:
+    type: 322
+    data: 0
+    amount: 1
+Torch:
+    type: 50
+    amount: 50
+    data: 0
+    indefaultview: true
+Diamond Pickaxe:
+    type: 278
+    amount: 1
+    data: 0
+    indefaultview: true

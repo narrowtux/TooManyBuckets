@@ -11,3 +11,6 @@ commands:
             - 'toomanyitems'
         usage: /<cmd>
         permission: 'toomanybuckets.use'
+permissions:
+    toomanybuckets.use:
+        default: op

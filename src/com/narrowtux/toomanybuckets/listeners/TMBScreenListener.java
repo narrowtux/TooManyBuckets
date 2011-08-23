@@ -38,6 +38,11 @@ public class TMBScreenListener extends ScreenListener {
 
 	@Override
 	public void onScreenClose(ScreenCloseEvent event) {
+		Screen screen = event.getScreen();
+		if(screen instanceof TMBMainScreen){
+			TMBMainScreen tmi = ((TMBMainScreen)screen);
+			tmi.handleClose();
+		}
 	}
 
 }
