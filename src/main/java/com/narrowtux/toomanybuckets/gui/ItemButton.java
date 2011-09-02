@@ -1,9 +1,27 @@
+/*
+ * Copyright (C) 2011 Moritz Schmale <narrow.m@gmail.com>
+ *
+ * TooManyBuckets is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/gpl.html>.
+ */
+
 package com.narrowtux.toomanybuckets.gui;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.inventory.ItemStack;
+
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.gui.Button;
 import org.getspout.spoutapi.gui.GenericButton;
@@ -14,7 +32,7 @@ import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.inventory.ItemManager;
 
 import com.narrowtux.toomanybuckets.ItemInfo;
-import com.narrowtux.toomanybuckets.TMBMain;
+import com.narrowtux.toomanybuckets.TMB;
 
 public class ItemButton {
 	private ItemInfo type;
@@ -36,7 +54,7 @@ public class ItemButton {
 		this.screen = screen;
 		initWidgets();
 	}
-	
+
 	private void initWidgets() {
 		btn = new GenericButton();
 		btn.setHeight(20).setWidth(20);
@@ -50,7 +68,7 @@ public class ItemButton {
 		}
 		instances.put(btn, this);
 	}
-	
+
 	public void attachToScreen(){
 		screen.attachWidget(btn).attachWidget(itemWidget);
 		setVisible(true);
@@ -62,7 +80,7 @@ public class ItemButton {
 		itemWidget.setX(x+2);
 		dirtyWidgets();
 	}
-	
+
 	public void setY(int y){
 		this.y = y;
 		btn.setY(y);
@@ -77,7 +95,7 @@ public class ItemButton {
 		dirtyWidgets();
 		visible = b;
 	}
-	
+
 	public void dirtyWidgets(){
 		btn.setDirty(true);
 		itemWidget.setDirty(true);
@@ -87,20 +105,20 @@ public class ItemButton {
 		screen.removeWidget(itemWidget);
 		screen.removeWidget(btn);
 	}
-	
-	
+
+
 	public ItemInfo getType(){
 		return type;
 	}
-	
+
 	public Button getButton(){
 		return btn;
 	}
-	
+
 	public Screen getScreen(){
 		return screen;
 	}
-	
+
 	public void setType(ItemInfo info){
 		this.type = info;
 		itemWidget.setTypeId(info.stack.getTypeId()).setData(info.stack.getDurability());
@@ -112,14 +130,14 @@ public class ItemButton {
 			}
 			data+=")";
 			String tooltip = info.name;
-			if(TMBMain.getInstance().getConfig().isShowItemId()){
+			if(TMB.getInstance().getConfig().isShowItemId()){
 				tooltip+= data;
 			}
 			btn.setTooltip(tooltip);
 		}
 		itemWidget.setDirty(true);
 	}
-	
+
 	public static ItemButton getByButton(Button btn)
 	{
 		return instances.get(btn);
@@ -128,5 +146,4 @@ public class ItemButton {
 	public boolean isVisible() {
 		return visible;
 	}
-	
 }

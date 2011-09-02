@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2011 Moritz Schmale <narrow.m@gmail.com>
+ *
+ * TooManyBuckets is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/gpl.html>.
+ */
+
 package com.narrowtux.toomanybuckets.gui;
 
 import java.util.ArrayList;
@@ -8,6 +25,7 @@ import java.util.Map;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+
 import org.getspout.spoutapi.gui.Button;
 import org.getspout.spoutapi.gui.GenericButton;
 import org.getspout.spoutapi.gui.GenericTextField;
@@ -16,17 +34,17 @@ import org.getspout.spoutapi.gui.TextField;
 import org.getspout.spoutapi.gui.Widget;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-import com.narrowtux.Assistant.GenericWindow;
+import com.narrowtux.narrowtuxlib.assistant.GenericWindow;
 import com.narrowtux.toomanybuckets.ItemInfo;
-import com.narrowtux.toomanybuckets.TMBMain;
+import com.narrowtux.toomanybuckets.TMB;
 
-public class TMBMainScreen extends GenericWindow {
+public class TMBScreen extends GenericWindow {
 	private SpoutPlayer player;
 	private TextField search;
 	private List<ItemInfo> visibleItems = new ArrayList<ItemInfo>();
 	private Button clearInventoryButton, clearSearchButton;
 	private Map<GridLocation, ItemButton> buttons = new HashMap<GridLocation, ItemButton>();
-	
+
 	public class GridLocation{
 		int x, y;
 		public GridLocation(int x, int y){
@@ -38,16 +56,16 @@ public class TMBMainScreen extends GenericWindow {
 			return x+y*10000;
 		}
 	}
-	
-	public TMBMainScreen(SpoutPlayer player){
+
+	public TMBScreen(SpoutPlayer player){
 		super("Too Many Buckets", player);
 		this.player = player;
-		visibleItems = TMBMain.getInstance().getDefaultView();
+		visibleItems = TMB.getInstance().getDefaultView();
 		initScreen();
 	}
-	
+
 	private void initScreen() {
-		TMBMain plugin = TMBMain.getInstance();
+		TMB plugin = TMB.getInstance();
 		search = new GenericTextField();
 		search.setX(getMarginLeft()).setY(getMarginTop()+25).setHeight(20).setWidth(185);
 		attachWidget(plugin, search);
@@ -82,11 +100,11 @@ public class TMBMainScreen extends GenericWindow {
 		}
 		refreshView();
 	}
-	
+
 	public void hide(){
 		close();
 	}
-	
+
 	public void handleTextFieldChange(TextField field, String newValue){
 		if(field.equals(search)){
 			doSearch(newValue);
@@ -94,7 +112,7 @@ public class TMBMainScreen extends GenericWindow {
 	}
 
 	public void doSearch(String query) {
-		List<ItemInfo> result = TMBMain.getSearchResult(query);
+		List<ItemInfo> result = TMB.getSearchResult(query);
 		visibleItems = result;
 		refreshView();
 	}
@@ -116,7 +134,7 @@ public class TMBMainScreen extends GenericWindow {
 			player.getInventory().addItem(stack);
 		}
 	}
-	
+
 	public void refreshView(){
 		int i = 0;
 		for(ItemButton button:buttons.values()){
@@ -131,7 +149,7 @@ public class TMBMainScreen extends GenericWindow {
 			i++;
 		}
 	}
-	
+
 	public ItemInfo getInfo(int i){
 		if(visibleItems.size()>i){
 			return visibleItems.get(i);
@@ -141,6 +159,6 @@ public class TMBMainScreen extends GenericWindow {
 	}
 
 	public void handleClose() {
-		
+
 	}
 }

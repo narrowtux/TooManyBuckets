@@ -1,0 +1,18 @@
+name: TooManyBuckets
+version: 0.1.2.${build.number}
+author: narrowtux
+description: TooManyItems-like plugin for Bukkit-based servers using Spout and Spoutcraft.
+website: http://www.narrowtux.com
+
+main: com.narrowtux.toomanybuckets.TMB
+depend: [NarrowtuxLib, Spout]
+
+commands:
+  toomanybuckets:
+    aliases: [tmb, tmi, toomanyitems]
+    usage: /<command>
+    permission: toomanybuckets.use
+
+permissions:
+  toomanybuckets.use:
+    default: op

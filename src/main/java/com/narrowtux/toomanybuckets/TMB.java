@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2011 Moritz Schmale <narrow.m@gmail.com>
+ *
+ * TooManyBuckets is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/gpl.html>.
+ */
+
 package com.narrowtux.toomanybuckets;
 
 import java.io.BufferedOutputStream;
@@ -28,28 +45,28 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.player.SpoutPlayer;
 import org.yaml.snakeyaml.Yaml;
 
-import com.narrowtux.Utils.FileUtils;
-import com.narrowtux.toomanybuckets.gui.TMBMainScreen;
+import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.player.SpoutPlayer;
+
+import com.narrowtux.narrowtuxlib.utils.FileUtils;
+import com.narrowtux.toomanybuckets.gui.TMBScreen;
 import com.narrowtux.toomanybuckets.listeners.CommandListener;
 import com.narrowtux.toomanybuckets.listeners.TMBPlayerListener;
 import com.narrowtux.toomanybuckets.listeners.TMBScreenListener;
 
-public class TMBMain extends JavaPlugin{
-
+public class TMB extends JavaPlugin{
 	private Logger log;
 	private CommandListener cmdListener = new CommandListener(this);
 	private TMBScreenListener screenListener = new TMBScreenListener(this);
 	private TMBPlayerListener playerListener = new TMBPlayerListener();
-	private Map<String, TMBMainScreen> screens = new HashMap<String, TMBMainScreen>();
-	private static TMBMain instance = null;
+	private Map<String, TMBScreen> screens = new HashMap<String, TMBScreen>();
+	private static TMB instance = null;
 	private List<ItemInfo> infos = new ArrayList<ItemInfo>();
 	private List<ItemInfo> defaultView = new ArrayList<ItemInfo>();
 	private Configuration config;
-	
+
 	@Override
 	public void onDisable() {
 		sendDescription("disabled");
@@ -69,7 +86,7 @@ public class TMBMain extends JavaPlugin{
 		config = new Configuration();
 		load();
 	}
-	
+
 	private void checkForLibs() {
 		PluginManager pm = getServer().getPluginManager();
 		if(pm.getPlugin("NarrowtuxLib")==null){
@@ -84,7 +101,7 @@ public class TMBMain extends JavaPlugin{
 			}
 		}
 	}
-	
+
 	public static void download(Logger log, URL url, File file) throws IOException {
 	    if (!file.getParentFile().exists())
 	        file.getParentFile().mkdir();
@@ -165,7 +182,7 @@ public class TMBMain extends JavaPlugin{
 						infos.add(info);
 					}
 					reader.close();
-				} catch (FileNotFoundException e) {} 
+				} catch (FileNotFoundException e) {}
 				catch (IOException e) {}
 			} else {
 				doLog("You need the items.yml file to use TooManyBuckets. Generating a (very) default one.");
@@ -206,16 +223,16 @@ public class TMBMain extends JavaPlugin{
 		}
 		log.log(Level.INFO, "["+pdf.getName()+"] v"+pdf.getVersion()+" by ["+authors+"] "+startup+".");
 	}
-	
+
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String args[]){
 		return cmdListener.onCommand(sender, cmd, label, args);
 	}
-	
+
 	public void openOverlay(SpoutPlayer player){
 		if(player.hasPermission("toomanybuckets.use")){
-			TMBMainScreen screen = null;
+			TMBScreen screen = null;
 			if(!screens.containsKey(player)){
-				screens.put(player.getName(), new TMBMainScreen(player));
+				screens.put(player.getName(), new TMBScreen(player));
 			}
 			screen = screens.get(player.getName());
 			screen.open();
@@ -223,7 +240,7 @@ public class TMBMain extends JavaPlugin{
 			player.sendMessage("You may not use TooManyBuckets");
 		}
 	}
-	
+
 	public static List<ItemInfo> getSearchResult(String query){
 		if(query.trim().equals("")){
 			return getInstance().defaultView;
@@ -237,16 +254,16 @@ public class TMBMain extends JavaPlugin{
 		}
 		return result;
 	}
-	
-	public void removeScreen(TMBMainScreen screen)
+
+	public void removeScreen(TMBScreen screen)
 	{
 		screens.remove(screen);
 	}
-	
-	public static TMBMain getInstance(){
+
+	public static TMB getInstance(){
 		return instance;
 	}
-	
+
 	public List<ItemInfo> getDefaultView(){
 		return Collections.unmodifiableList(defaultView);
 	}
