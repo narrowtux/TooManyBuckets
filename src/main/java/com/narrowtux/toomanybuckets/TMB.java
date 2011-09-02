@@ -54,12 +54,12 @@ import com.narrowtux.narrowtuxlib.utils.FileUtils;
 import com.narrowtux.toomanybuckets.gui.TMBMainScreen;
 import com.narrowtux.toomanybuckets.listeners.CommandListener;
 import com.narrowtux.toomanybuckets.listeners.TMBPlayerListener;
-import com.narrowtux.toomanybuckets.listeners.TMBMainScreenListener;
+import com.narrowtux.toomanybuckets.listeners.TMBScreenListener;
 
 public class TMB extends JavaPlugin{
 	private Logger log;
 	private CommandListener cmdListener = new CommandListener(this);
-	private TMBMainScreenListener screenListener = new TMBMainScreenListener(this);
+	private TMBScreenListener screenListener = new TMBScreenListener(this);
 	private TMBPlayerListener playerListener = new TMBPlayerListener();
 	private Map<String, TMBMainScreen> screens = new HashMap<String, TMBMainScreen>();
 	private static TMB instance = null;

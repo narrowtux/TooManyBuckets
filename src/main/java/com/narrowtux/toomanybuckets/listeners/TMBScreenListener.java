@@ -26,10 +26,10 @@ import org.getspout.spoutapi.gui.Screen;
 import com.narrowtux.toomanybuckets.TMB;
 import com.narrowtux.toomanybuckets.gui.TMBMainScreen;
 
-public class TMBMainScreenListener extends ScreenListener {
+public class TMBScreenListener extends ScreenListener {
 	private TMB plugin;
 
-	public TMBMainScreenListener(TMB tmbMain) {
+	public TMBScreenListener(TMB tmbMain) {
 		plugin = tmbMain;
 	}
 
