@@ -38,7 +38,7 @@ import com.narrowtux.narrowtuxlib.assistant.GenericWindow;
 import com.narrowtux.toomanybuckets.ItemInfo;
 import com.narrowtux.toomanybuckets.TMB;
 
-public class TMBScreen extends GenericWindow {
+public class TMBMainScreen extends GenericWindow {
 	private SpoutPlayer player;
 	private TextField search;
 	private List<ItemInfo> visibleItems = new ArrayList<ItemInfo>();
@@ -57,7 +57,7 @@ public class TMBScreen extends GenericWindow {
 		}
 	}
 
-	public TMBScreen(SpoutPlayer player){
+	public TMBMainScreen(SpoutPlayer player){
 		super("Too Many Buckets", player);
 		this.player = player;
 		visibleItems = TMB.getInstance().getDefaultView();

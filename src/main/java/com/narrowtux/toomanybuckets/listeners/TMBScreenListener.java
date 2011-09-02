@@ -24,12 +24,12 @@ import org.getspout.spoutapi.event.screen.TextFieldChangeEvent;
 import org.getspout.spoutapi.gui.Screen;
 
 import com.narrowtux.toomanybuckets.TMB;
-import com.narrowtux.toomanybuckets.gui.TMBScreen;
+import com.narrowtux.toomanybuckets.gui.TMBMainScreen;
 
-public class TMBScreenListener extends ScreenListener {
+public class TMBMainScreenListener extends ScreenListener {
 	private TMB plugin;
 
-	public TMBScreenListener(TMB tmbMain) {
+	public TMBMainScreenListener(TMB tmbMain) {
 		plugin = tmbMain;
 	}
 
@@ -38,8 +38,8 @@ public class TMBScreenListener extends ScreenListener {
 		if(!event.getButton().isVisible())
 			return;
 		Screen screen = event.getScreen();
-		if(screen instanceof TMBScreen){
-			TMBScreen tmi = ((TMBScreen)screen);
+		if(screen instanceof TMBMainScreen){
+			TMBMainScreen tmi = ((TMBMainScreen)screen);
 			tmi.handleClick(event.getButton());
 		}
 	}
@@ -47,16 +47,16 @@ public class TMBScreenListener extends ScreenListener {
 	@Override
 	public void onTextFieldChange(TextFieldChangeEvent event) {
 		Screen screen = event.getScreen();
-		if(screen instanceof TMBScreen){
-			((TMBScreen)screen).handleTextFieldChange(event.getTextField(), event.getNewText());
+		if(screen instanceof TMBMainScreen){
+			((TMBMainScreen)screen).handleTextFieldChange(event.getTextField(), event.getNewText());
 		}
 	}
 
 	@Override
 	public void onScreenClose(ScreenCloseEvent event) {
 		Screen screen = event.getScreen();
-		if(screen instanceof TMBScreen){
-			TMBScreen tmi = ((TMBScreen)screen);
+		if(screen instanceof TMBMainScreen){
+			TMBMainScreen tmi = ((TMBMainScreen)screen);
 			tmi.handleClose();
 		}
 	}

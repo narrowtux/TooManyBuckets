@@ -51,17 +51,17 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import com.narrowtux.narrowtuxlib.utils.FileUtils;
-import com.narrowtux.toomanybuckets.gui.TMBScreen;
+import com.narrowtux.toomanybuckets.gui.TMBMainScreen;
 import com.narrowtux.toomanybuckets.listeners.CommandListener;
 import com.narrowtux.toomanybuckets.listeners.TMBPlayerListener;
-import com.narrowtux.toomanybuckets.listeners.TMBScreenListener;
+import com.narrowtux.toomanybuckets.listeners.TMBMainScreenListener;
 
 public class TMB extends JavaPlugin{
 	private Logger log;
 	private CommandListener cmdListener = new CommandListener(this);
-	private TMBScreenListener screenListener = new TMBScreenListener(this);
+	private TMBMainScreenListener screenListener = new TMBMainScreenListener(this);
 	private TMBPlayerListener playerListener = new TMBPlayerListener();
-	private Map<String, TMBScreen> screens = new HashMap<String, TMBScreen>();
+	private Map<String, TMBMainScreen> screens = new HashMap<String, TMBMainScreen>();
 	private static TMB instance = null;
 	private List<ItemInfo> infos = new ArrayList<ItemInfo>();
 	private List<ItemInfo> defaultView = new ArrayList<ItemInfo>();
@@ -230,9 +230,9 @@ public class TMB extends JavaPlugin{
 
 	public void openOverlay(SpoutPlayer player){
 		if(player.hasPermission("toomanybuckets.use")){
-			TMBScreen screen = null;
+			TMBMainScreen screen = null;
 			if(!screens.containsKey(player)){
-				screens.put(player.getName(), new TMBScreen(player));
+				screens.put(player.getName(), new TMBMainScreen(player));
 			}
 			screen = screens.get(player.getName());
 			screen.open();
@@ -255,7 +255,7 @@ public class TMB extends JavaPlugin{
 		return result;
 	}
 
-	public void removeScreen(TMBScreen screen)
+	public void removeScreen(TMBMainScreen screen)
 	{
 		screens.remove(screen);
 	}
