@@ -26,7 +26,7 @@ TooManyBuckets requires Bukkit, SpoutAPI, NarrowtuxLib, and Permissions 3.x (pre
 Coding and Pull Request Formatting
 ----------------------------------
 * Generally follows the Oracle coding standards.
-* Spout uses tabs, no spaces.
+* TooManyBuckets uses tabs, no spaces.
 * No 80 column limit or midstatement newlines.
 * Pull requests must compile and work.
 * Pull requests must be formatted properly.
