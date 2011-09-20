@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.inventory.ItemStack;
-
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.gui.Button;
 import org.getspout.spoutapi.gui.GenericButton;
@@ -29,10 +28,9 @@ import org.getspout.spoutapi.gui.GenericItemWidget;
 import org.getspout.spoutapi.gui.ItemWidget;
 import org.getspout.spoutapi.gui.RenderPriority;
 import org.getspout.spoutapi.gui.Screen;
-import org.getspout.spoutapi.inventory.ItemManager;
-
 import com.narrowtux.toomanybuckets.ItemInfo;
 import com.narrowtux.toomanybuckets.TMB;
+
 
 public class ItemButton {
 	private ItemInfo type;
@@ -70,7 +68,7 @@ public class ItemButton {
 	}
 
 	public void attachToScreen(){
-		screen.attachWidget(btn).attachWidget(itemWidget);
+		screen.attachWidget(TMB.getInstance(), btn).attachWidget(TMB.getInstance(), itemWidget);
 		setVisible(true);
 	}
 
@@ -100,7 +98,7 @@ public class ItemButton {
 		btn.setDirty(true);
 		itemWidget.setDirty(true);
 	}
-
+	
 	public void remove() {
 		screen.removeWidget(itemWidget);
 		screen.removeWidget(btn);
@@ -123,17 +121,7 @@ public class ItemButton {
 		this.type = info;
 		itemWidget.setTypeId(info.stack.getTypeId()).setData(info.stack.getDurability());
 		if(info!=null){
-			String data = " ("+info.stack.getTypeId();
-			if(info.stack.getDurability()!=0)
-			{
-				data+= ":"+info.stack.getDurability();
-			}
-			data+=")";
-			String tooltip = info.name;
-			if(TMB.getInstance().getConfig().isShowItemId()){
-				tooltip+= data;
-			}
-			btn.setTooltip(tooltip);
+			btn.setTooltip(info.getTooltip());
 		}
 		itemWidget.setDirty(true);
 	}

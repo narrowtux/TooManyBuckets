@@ -23,9 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-
 import org.getspout.spoutapi.gui.Button;
 import org.getspout.spoutapi.gui.GenericButton;
 import org.getspout.spoutapi.gui.GenericTextField;
@@ -34,15 +32,18 @@ import org.getspout.spoutapi.gui.TextField;
 import org.getspout.spoutapi.gui.Widget;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
+import com.narrowtux.narrowtuxlib.NarrowtuxLib;
 import com.narrowtux.narrowtuxlib.assistant.GenericWindow;
 import com.narrowtux.toomanybuckets.ItemInfo;
 import com.narrowtux.toomanybuckets.TMB;
+import com.nijikokun.register.payment.Method.MethodAccount;
+
 
 public class TMBMainScreen extends GenericWindow {
 	private SpoutPlayer player;
 	private TextField search;
 	private List<ItemInfo> visibleItems = new ArrayList<ItemInfo>();
-	private Button clearInventoryButton, clearSearchButton;
+	private Button clearInventoryButton, clearSearchButton, closeWindowButton;
 	private Map<GridLocation, ItemButton> buttons = new HashMap<GridLocation, ItemButton>();
 
 	public class GridLocation{
@@ -76,6 +77,11 @@ public class TMBMainScreen extends GenericWindow {
 		clearSearchButton.setWidth(20).setHeight(20).setX(getMarginLeft()+185-20).setY(search.getY());
 		clearSearchButton.setPriority(RenderPriority.Low);
 		clearSearchButton.setTooltip("Clear search");
+		closeWindowButton = new GenericButton(ChatColor.RED+"X");
+		closeWindowButton.setTooltip("Close Window");
+		closeWindowButton.setWidth(20).setHeight(20).setX(getMarginRight()-26).setY(getMarginTop()-2);
+		closeWindowButton.setPriority(RenderPriority.Low);
+		attachWidget(plugin, closeWindowButton);
 		search.setTooltip("Search for an item");
 		attachWidget(plugin, clearSearchButton);
 		for(int y = 0;y<6;y++){
@@ -127,10 +133,35 @@ public class TMBMainScreen extends GenericWindow {
 			search.setDirty(true);
 			doSearch("");
 		}
+		if(button.equals(closeWindowButton)){
+			close();
+		}
 		ItemButton ibtn = ItemButton.getByButton(button);
 		if(ibtn!=null)
 		{
-			ItemStack stack = ibtn.getType().stack.clone();
+			ItemInfo info = ibtn.getType();
+			ItemStack stack = info.stack.clone();
+			if(info.price>0){
+				MethodAccount account = NarrowtuxLib.getMethod().getAccount(player.getName());
+				if(account.hasEnough(info.price)){
+					account.subtract(info.price);
+					player.sendNotification(ChatColor.YELLOW.toString()+info.stack.getAmount()+" "+info.name, 
+							"Bought for "+NarrowtuxLib.getMethod().format(info.price), 
+							info.stack.getType(), 
+							info.stack.getDurability(), 5000);
+				} else {
+					player.sendNotification(ChatColor.RED+"Not enough money for", 
+							info.name, 
+							info.stack.getType(), 
+							info.stack.getDurability(), 5000);
+					return;
+				}
+			} else {
+				player.sendNotification(ChatColor.YELLOW.toString()+info.stack.getAmount()+" "+info.name, 
+						"Added to your inventory", 
+						info.stack.getType(), 
+						info.stack.getDurability(), 5000);
+			}
 			player.getInventory().addItem(stack);
 		}
 	}

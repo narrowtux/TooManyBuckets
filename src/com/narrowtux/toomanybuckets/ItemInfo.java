@@ -3,7 +3,7 @@ package com.narrowtux.toomanybuckets;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
-import com.narrowtux.narrowtuxlib.NarrowtuxLib;
+import com.narrowtux.Main.NarrowtuxLib;
 
 public class ItemInfo {
 	public ItemStack stack;
@@ -22,7 +22,7 @@ public class ItemInfo {
 		if(price > 0){
 			tooltip += " "+ChatColor.GOLD+NarrowtuxLib.getMethod().format(price);
 		}
-		if(TMB.getInstance().getConfig().isShowItemId()){
+		if(TMBMain.getInstance().getConfig().isShowItemId()){
 			tooltip+=ChatColor.WHITE + data;
 		}
 		return tooltip;
