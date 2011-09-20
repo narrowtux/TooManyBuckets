@@ -59,7 +59,7 @@ import com.narrowtux.toomanybuckets.listeners.TMBScreenListener;
 public class TMB extends JavaPlugin{
 	private Logger log;
 	private CommandListener cmdListener = new CommandListener(this);
-	private TMBScreenListener screenListener = new TMBScreenListener(this);
+	private TMBScreenListener screenListener;
 	private TMBPlayerListener playerListener = new TMBPlayerListener();
 	private Map<String, TMBMainScreen> screens = new HashMap<String, TMBMainScreen>();
 	private static TMB instance = null;
@@ -77,6 +77,7 @@ public class TMB extends JavaPlugin{
 		instance = this;
 		log = Logger.getLogger("Minecraft");
 		checkForLibs();
+		screenListener = new TMBScreenListener(this);
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvent(Type.CUSTOM_EVENT, screenListener, Priority.Normal, this);
 		pm.registerEvent(Type.PLAYER_QUIT, playerListener, Priority.Normal, this);
