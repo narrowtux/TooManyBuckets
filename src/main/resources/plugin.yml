@@ -1,5 +1,5 @@
 name: TooManyBuckets
-version: 0.2.1.${build.number}
+version: 0.2.2.${build.number}
 author: narrowtux
 description: TooManyItems-like plugin for Bukkit-based servers using Spout and Spoutcraft.
 website: http://www.narrowtux.com
