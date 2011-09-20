@@ -159,6 +159,9 @@ public class TMBMain extends JavaPlugin{
 						if(info.inDefaultView){
 							defaultView.add(info);
 						}
+						if(itemData.containsKey("price")){
+							info.price = (Double)itemData.get("price");
+						}
 						if(config.isSetCustomNames()){
 							SpoutManager.getItemManager().setItemName(stack.getType(), stack.getDurability(), name);
 						}
@@ -214,7 +217,7 @@ public class TMBMain extends JavaPlugin{
 	public void openOverlay(SpoutPlayer player){
 		if(player.hasPermission("toomanybuckets.use")){
 			TMBMainScreen screen = null;
-			if(!screens.containsKey(player)){
+			if(!screens.containsKey(player.getName())){
 				screens.put(player.getName(), new TMBMainScreen(player));
 			}
 			screen = screens.get(player.getName());
@@ -228,10 +231,30 @@ public class TMBMain extends JavaPlugin{
 		if(query.trim().equals("")){
 			return getInstance().defaultView;
 		}
+		int id = -1;
+		try{
+			id = Integer.valueOf(query);
+		} catch(Exception e){
+			id = -1;
+		}
 		query = query.toLowerCase();
 		List<ItemInfo> result = new ArrayList<ItemInfo>();
 		for(ItemInfo mat :getInstance().infos){
-			if(mat.name.toLowerCase().contains(query)){
+			String words[] = mat.name.toLowerCase().split(" ");
+			boolean matches = false;
+			
+			if(id == mat.stack.getTypeId()){
+				matches = true;
+			}
+			for(String word:words){
+				if(word.startsWith(query)){
+					matches = true;
+				}
+			}
+			if(mat.name.toLowerCase().startsWith(query)){
+				matches = true;
+			}
+			if(matches){
 				result.add(mat);
 			}
 		}
@@ -240,7 +263,9 @@ public class TMBMain extends JavaPlugin{
 	
 	public void removeScreen(TMBMainScreen screen)
 	{
-		screens.remove(screen);
+		if(screen != null){
+			screens.remove(screen.getPlayer().getName());
+		}
 	}
 	
 	public static TMBMain getInstance(){

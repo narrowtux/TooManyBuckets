@@ -1,8 +1,8 @@
 name: TooManyBuckets
 author: narrowtux
 main: com.narrowtux.toomanybuckets.TMBMain
-version: 0.1.2
-depend: [NarrowtuxLib, Spout]
+version: 0.2.1
+soft-depend: [NarrowtuxLib, Spout]
 commands:
     toomanybuckets:
         aliases:

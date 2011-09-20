@@ -4,17 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.inventory.ItemStack;
-import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.gui.Button;
 import org.getspout.spoutapi.gui.GenericButton;
 import org.getspout.spoutapi.gui.GenericItemWidget;
 import org.getspout.spoutapi.gui.ItemWidget;
 import org.getspout.spoutapi.gui.RenderPriority;
 import org.getspout.spoutapi.gui.Screen;
-import org.getspout.spoutapi.inventory.ItemManager;
 
 import com.narrowtux.toomanybuckets.ItemInfo;
-import com.narrowtux.toomanybuckets.TMBMain;
 
 public class ItemButton {
 	private ItemInfo type;
@@ -105,17 +102,7 @@ public class ItemButton {
 		this.type = info;
 		itemWidget.setTypeId(info.stack.getTypeId()).setData(info.stack.getDurability());
 		if(info!=null){
-			String data = " ("+info.stack.getTypeId();
-			if(info.stack.getDurability()!=0)
-			{
-				data+= ":"+info.stack.getDurability();
-			}
-			data+=")";
-			String tooltip = info.name;
-			if(TMBMain.getInstance().getConfig().isShowItemId()){
-				tooltip+= data;
-			}
-			btn.setTooltip(tooltip);
+			btn.setTooltip(info.getTooltip());
 		}
 		itemWidget.setDirty(true);
 	}
