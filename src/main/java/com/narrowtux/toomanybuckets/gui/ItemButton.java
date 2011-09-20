@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.inventory.ItemStack;
-import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.gui.Button;
 import org.getspout.spoutapi.gui.GenericButton;
 import org.getspout.spoutapi.gui.GenericItemWidget;
@@ -30,7 +29,6 @@ import org.getspout.spoutapi.gui.RenderPriority;
 import org.getspout.spoutapi.gui.Screen;
 import com.narrowtux.toomanybuckets.ItemInfo;
 import com.narrowtux.toomanybuckets.TMB;
-
 
 public class ItemButton {
 	private ItemInfo type;
