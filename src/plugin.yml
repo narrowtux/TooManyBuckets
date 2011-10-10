@@ -5,7 +5,7 @@ description: TooManyItems-like plugin for Bukkit-based servers using Spout and S
 website: http://www.narrowtux.com
 
 main: com.narrowtux.toomanybuckets.TMB
-depend: [NarrowtuxLib, Spout]
+softdepend: [NarrowtuxLib, Spout]
 
 commands:
   toomanybuckets:
