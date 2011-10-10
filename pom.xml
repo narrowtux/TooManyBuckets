@@ -107,8 +107,15 @@
                 <filtering>true</filtering>
                 <directory>${basedir}/src/main/resources</directory>
                 <includes>
-                    <include>LICENSE.txt</include>
                     <include>plugin.yml</include>
+                </includes>
+            </resource>
+            <resource>
+                <targetPath>.</targetPath>
+                <filtering>false</filtering>
+                <directory>${basedir}/src/main/resources</directory>
+                <includes>
+                    <include>items.yml</include>
                 </includes>
             </resource>
         </resources>
