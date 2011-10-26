@@ -22,7 +22,7 @@ public class ItemInfo {
 		if(price > 0){
 			tooltip += " "+ChatColor.GOLD+NarrowtuxLib.getMethod().format(price);
 		}
-		if(TMB.getInstance().getConfig().isShowItemId()){
+		if(TMB.getInstance().getCustomConfig().isShowItemId()){
 			tooltip+=ChatColor.WHITE + data;
 		}
 		return tooltip;

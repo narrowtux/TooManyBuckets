@@ -294,7 +294,7 @@ public class TMB extends JavaPlugin{
 		return Collections.unmodifiableList(defaultView);
 	}
 
-	public Configuration getConfig() {
+	public Configuration getCustomConfig() {
 		return config;
 	}
 

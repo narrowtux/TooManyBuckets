@@ -36,7 +36,7 @@ import com.narrowtux.narrowtuxlib.NarrowtuxLib;
 import com.narrowtux.narrowtuxlib.assistant.GenericWindow;
 import com.narrowtux.toomanybuckets.ItemInfo;
 import com.narrowtux.toomanybuckets.TMB;
-import com.nijikokun.register.payment.Method.MethodAccount;
+import com.nijikokun.register.narrowtuxlib.payment.Method.MethodAccount;
 
 
 public class TMBMainScreen extends GenericWindow {
