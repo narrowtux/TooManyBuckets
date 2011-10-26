@@ -36,10 +36,6 @@ public class CommandListener {
 			return true;
 		}
 		SpoutPlayer player = (SpoutPlayer)sender;
-		if(player.getVersion()<18){
-			player.sendMessage("You need to have the latest Spoutcraft!");
-			return true;
-		}
 		if(cmd.getName().equals("toomanybuckets")){
 			player.closeActiveWindow();
 			plugin.openOverlay(player);
