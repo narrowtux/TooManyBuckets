@@ -8,11 +8,11 @@ main: com.narrowtux.toomanybuckets.TMB
 softdepend: [NarrowtuxLib, Spout]
 
 commands:
-  toomanybuckets:
-    aliases: [tmb, tmi, toomanyitems]
-    usage: /<command>
-    permission: toomanybuckets.use
+    toomanybuckets:
+        aliases: [tmb, tmi, toomanyitems]
+        usage: /<command>
+        permission: toomanybuckets.use
 
 permissions:
-  toomanybuckets.use:
-    default: op
+    toomanybuckets.use:
+        default: op
