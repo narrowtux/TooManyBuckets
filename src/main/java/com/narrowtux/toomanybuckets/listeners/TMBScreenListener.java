@@ -29,34 +29,35 @@ import com.narrowtux.toomanybuckets.gui.TMBMainScreen;
 
 public class TMBScreenListener implements Listener {
 
-	public TMBScreenListener(TMB tmbMain) {
-	}
+    public TMBScreenListener(TMB tmbMain) {
+    }
 
-	@EventHandler
-	public void onButtonClick(ButtonClickEvent event) {
-		if(!event.getButton().isVisible())
-			return;
-		Screen screen = event.getScreen();
-		if(screen instanceof TMBMainScreen){
-			TMBMainScreen tmi = ((TMBMainScreen)screen);
-			tmi.handleClick(event.getButton());
-		}
-	}
+    @EventHandler
+    public void onButtonClick(ButtonClickEvent event) {
+        if (!event.getButton().isVisible())
+            return;
+        Screen screen = event.getScreen();
+        if (screen instanceof TMBMainScreen) {
+            TMBMainScreen tmi = ((TMBMainScreen) screen);
+            tmi.handleClick(event.getButton());
+        }
+    }
 
-	@EventHandler
-	public void onTextFieldChange(TextFieldChangeEvent event) {
-		Screen screen = event.getScreen();
-		if(screen instanceof TMBMainScreen){
-			((TMBMainScreen)screen).handleTextFieldChange(event.getTextField(), event.getNewText());
-		}
-	}
+    @EventHandler
+    public void onTextFieldChange(TextFieldChangeEvent event) {
+        Screen screen = event.getScreen();
+        if (screen instanceof TMBMainScreen) {
+            ((TMBMainScreen) screen).handleTextFieldChange(
+                    event.getTextField(), event.getNewText());
+        }
+    }
 
-	@EventHandler
-	public void onScreenClose(ScreenCloseEvent event) {
-		Screen screen = event.getScreen();
-		if(screen instanceof TMBMainScreen){
-			TMBMainScreen tmi = ((TMBMainScreen)screen);
-			tmi.handleClose();
-		}
-	}
+    @EventHandler
+    public void onScreenClose(ScreenCloseEvent event) {
+        Screen screen = event.getScreen();
+        if (screen instanceof TMBMainScreen) {
+            TMBMainScreen tmi = ((TMBMainScreen) screen);
+            tmi.handleClose();
+        }
+    }
 }

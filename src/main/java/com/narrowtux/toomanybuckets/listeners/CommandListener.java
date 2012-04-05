@@ -26,38 +26,36 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 import com.narrowtux.toomanybuckets.TMB;
 
 public class CommandListener {
-	private TMB plugin;
+    private TMB plugin;
 
-	public CommandListener(TMB tmbMain) {
-		plugin = tmbMain;
-	}
+    public CommandListener(TMB tmbMain) {
+        plugin = tmbMain;
+    }
 
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String args[]){
-		if (sender instanceof SpoutPlayer){
-			SpoutPlayer player = (SpoutPlayer)sender;
-			if(cmd.getName().equals("toomanybuckets") && args.length == 0){
-				plugin.openOverlay(player);
-				return true;
-			}
-			else{
-				if (args.length == 1 && args[0].equalsIgnoreCase("rml")){
-					player.sendMessage(ChatColor.RED + "rml can only be issued from the console!");
-					return true;
-				}
-				else{
-					return false;
-				}
-			}
-		}
-		else{
-			if(args.length != 1 || !args[0].equalsIgnoreCase("rml")){
-				sender.sendMessage("You need to be player to invoke the GUI interface!");
-				return true;
-			}
-			else{
-				plugin.load(true);
-				return true;
-			}
-		}
-	}
+    public boolean onCommand(CommandSender sender, Command cmd, String label,
+            String args[]) {
+        if (sender instanceof SpoutPlayer) {
+            SpoutPlayer player = (SpoutPlayer) sender;
+            if (cmd.getName().equals("toomanybuckets") && args.length == 0) {
+                plugin.openOverlay(player);
+                return true;
+            } else {
+                if (args.length == 1 && args[0].equalsIgnoreCase("rml")) {
+                    player.sendMessage(ChatColor.RED
+                            + "rml can only be issued from the console!");
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } else {
+            if (args.length != 1 || !args[0].equalsIgnoreCase("rml")) {
+                sender.sendMessage("You need to be player to invoke the GUI interface!");
+                return true;
+            } else {
+                plugin.load(true);
+                return true;
+            }
+        }
+    }
 }

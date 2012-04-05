@@ -22,30 +22,34 @@ import java.io.File;
 import com.narrowtux.narrowtuxlib.utils.FlatFileReader;
 
 public class Configuration {
-	private boolean setCustomNames = false;
-	private boolean showItemId = false;
-	private boolean broadcast = false;
-	FlatFileReader reader ;
+    private boolean setCustomNames = false;
 
-	public Configuration(){
-		reader = new FlatFileReader(new File(TMB.getInstance().getDataFolder(), "toomanyitems.cfg"), false);
-		load();
-		reader.write();
-	}
+    private boolean showItemId = false;
 
-	private void load() {
-		setCustomNames = reader.getBoolean("setcustomnames", false);
-		showItemId = reader.getBoolean("showitemid", false);
-		broadcast = reader.getBoolean("broadcast", false);
-	}
+    private boolean broadcast = false;
 
-	public boolean isShowItemId() {
-		return showItemId;
-	}
+    FlatFileReader reader;
 
-	public boolean isSetCustomNames() {
-		return setCustomNames;
-	}
+    public Configuration() {
+        reader = new FlatFileReader(new File(TMB.getInstance().getDataFolder(),
+                "toomanyitems.cfg"), false);
+        load();
+        reader.write();
+    }
+
+    private void load() {
+        setCustomNames = reader.getBoolean("setcustomnames", false);
+        showItemId = reader.getBoolean("showitemid", false);
+        broadcast = reader.getBoolean("broadcast", false);
+    }
+
+    public boolean isShowItemId() {
+        return showItemId;
+    }
+
+    public boolean isSetCustomNames() {
+        return setCustomNames;
+    }
 
     public boolean isBroadcast() {
         return broadcast;

@@ -31,107 +31,111 @@ import com.narrowtux.toomanybuckets.ItemInfo;
 import com.narrowtux.toomanybuckets.TMB;
 
 public class ItemButton {
-	private ItemInfo type;
-	private Button btn;
-	private Screen screen;
-	private ItemWidget itemWidget;
-	private static Map<Button, ItemButton> instances = new HashMap<Button, ItemButton>();
-	@SuppressWarnings("unused")
-	private int x, y;
-	private boolean visible;
-	
-	public ItemButton(ItemInfo type, Screen screen)
-	{
-		if(type == null)
-		{
-			type = new ItemInfo();
-			type.stack = new ItemStack(0);
-		}
-		this.type = type;
-		this.screen = screen;
-		initWidgets();
-	}
+    private ItemInfo type;
 
-	private void initWidgets() {
-		btn = new GenericButton("");
-		btn.setHeight(20).setWidth(20);
-		btn.setPriority(RenderPriority.High);
-		itemWidget = new GenericItemWidget(type.stack);
-		itemWidget.setPriority(RenderPriority.Normal);
-		if(type.stack.getType().isBlock()){
-			itemWidget.setWidth(8).setHeight(8).setDepth(8);
-		} else {
-			itemWidget.setWidth(1).setHeight(1).setDepth(1);
-		}
-		instances.put(btn, this);
-	}
+    private Button btn;
 
-	public void attachToScreen(){
-		screen.attachWidget(TMB.getInstance(), btn).attachWidget(TMB.getInstance(), itemWidget);
-		setVisible(true);
-	}
+    private Screen screen;
 
-	public void setX(int x){
-		this.x = x;
-		btn.setX(x);
-		itemWidget.setX(x+2);
-		dirtyWidgets();
-	}
+    private ItemWidget itemWidget;
 
-	public void setY(int y){
-		this.y = y;
-		btn.setY(y);
-		itemWidget.setY(y+2);
-		dirtyWidgets();
-	}
+    private static Map<Button, ItemButton> instances = new HashMap<Button, ItemButton>();
 
-	public void setVisible(boolean b) {
-		btn.setVisible(b);
-		btn.setEnabled(b);
-		itemWidget.setVisible(b);
-		dirtyWidgets();
-		visible = b;
-	}
+    @SuppressWarnings("unused")
+    private int x, y;
 
-	public void dirtyWidgets(){
-		btn.setDirty(true);
-		itemWidget.setDirty(true);
-	}
-	
-	public void remove() {
-		screen.removeWidget(itemWidget);
-		screen.removeWidget(btn);
-	}
+    private boolean visible;
 
+    public ItemButton(ItemInfo type, Screen screen) {
+        if (type == null) {
+            type = new ItemInfo();
+            type.stack = new ItemStack(0);
+        }
+        this.type = type;
+        this.screen = screen;
+        initWidgets();
+    }
 
-	public ItemInfo getType(){
-		return type;
-	}
+    private void initWidgets() {
+        btn = new GenericButton("");
+        btn.setHeight(20).setWidth(20);
+        btn.setPriority(RenderPriority.High);
+        itemWidget = new GenericItemWidget(type.stack);
+        itemWidget.setPriority(RenderPriority.Normal);
+        if (type.stack.getType().isBlock()) {
+            itemWidget.setWidth(8).setHeight(8).setDepth(8);
+        } else {
+            itemWidget.setWidth(1).setHeight(1).setDepth(1);
+        }
+        instances.put(btn, this);
+    }
 
-	public Button getButton(){
-		return btn;
-	}
+    public void attachToScreen() {
+        screen.attachWidget(TMB.getInstance(), btn).attachWidget(
+                TMB.getInstance(), itemWidget);
+        setVisible(true);
+    }
 
-	public Screen getScreen(){
-		return screen;
-	}
+    public void setX(int x) {
+        this.x = x;
+        btn.setX(x);
+        itemWidget.setX(x + 2);
+        dirtyWidgets();
+    }
 
-	public void setType(ItemInfo info){
-		this.type = info;
-		itemWidget.setTypeId(info.stack.getTypeId()).setData(info.stack.getDurability());
-		if(info!=null){
-			btn.setTooltip(info.getTooltip());
-			btn.setDirty(true);
-		}
-		itemWidget.setDirty(true);
-	}
+    public void setY(int y) {
+        this.y = y;
+        btn.setY(y);
+        itemWidget.setY(y + 2);
+        dirtyWidgets();
+    }
 
-	public static ItemButton getByButton(Button btn)
-	{
-		return instances.get(btn);
-	}
+    public void setVisible(boolean b) {
+        btn.setVisible(b);
+        btn.setEnabled(b);
+        itemWidget.setVisible(b);
+        dirtyWidgets();
+        visible = b;
+    }
 
-	public boolean isVisible() {
-		return visible;
-	}
+    public void dirtyWidgets() {
+        btn.setDirty(true);
+        itemWidget.setDirty(true);
+    }
+
+    public void remove() {
+        screen.removeWidget(itemWidget);
+        screen.removeWidget(btn);
+    }
+
+    public ItemInfo getType() {
+        return type;
+    }
+
+    public Button getButton() {
+        return btn;
+    }
+
+    public Screen getScreen() {
+        return screen;
+    }
+
+    public void setType(ItemInfo info) {
+        this.type = info;
+        itemWidget.setTypeId(info.stack.getTypeId()).setData(
+                info.stack.getDurability());
+        if (info != null) {
+            btn.setTooltip(info.getTooltip());
+            btn.setDirty(true);
+        }
+        itemWidget.setDirty(true);
+    }
+
+    public static ItemButton getByButton(Button btn) {
+        return instances.get(btn);
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
 }

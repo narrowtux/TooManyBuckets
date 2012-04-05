@@ -27,15 +27,15 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import com.narrowtux.toomanybuckets.TMB;
 
 public class TMBPlayerListener implements Listener {
-	
-	@EventHandler
-	public void onPlayerQuit(PlayerQuitEvent event) {
-		TMB.getInstance().removeScreen(event.getPlayer());
-	}
 
-	@EventHandler
-	public void onPlayerKick(PlayerKickEvent event) {
-		TMB.getInstance().removeScreen(event.getPlayer());
-	}
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        TMB.getInstance().removeScreen(event.getPlayer());
+    }
+
+    @EventHandler
+    public void onPlayerKick(PlayerKickEvent event) {
+        TMB.getInstance().removeScreen(event.getPlayer());
+    }
 
 }
