@@ -269,7 +269,7 @@ public class TMB extends JavaPlugin{
 		}
 	}
 
-	private static short FindTypeId(String materialName){
+	private static short findTypeId(String materialName){
 		short res = 0;
 		
 		for(org.getspout.spoutapi.material.Material m:MaterialData.getMaterials()){
@@ -311,7 +311,7 @@ public class TMB extends JavaPlugin{
 				matches = true;
 			}
 			if(matches){
-				itemId = FindTypeId(mat.name);
+				itemId = findTypeId(mat.name);
 				if (itemId > 0){
 					mat.stack.setDurability(itemId);
 				}
