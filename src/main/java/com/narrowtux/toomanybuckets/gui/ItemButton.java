@@ -121,6 +121,7 @@ public class ItemButton {
 		itemWidget.setTypeId(info.stack.getTypeId()).setData(info.stack.getDurability());
 		if(info!=null){
 			btn.setTooltip(info.getTooltip());
+			btn.setDirty(true);
 		}
 		itemWidget.setDirty(true);
 	}

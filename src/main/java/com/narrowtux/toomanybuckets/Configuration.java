@@ -24,6 +24,7 @@ import com.narrowtux.narrowtuxlib.utils.FlatFileReader;
 public class Configuration {
 	private boolean setCustomNames = false;
 	private boolean showItemId = false;
+	private boolean broadcast = false;
 	FlatFileReader reader ;
 
 	public Configuration(){
@@ -35,6 +36,7 @@ public class Configuration {
 	private void load() {
 		setCustomNames = reader.getBoolean("setcustomnames", false);
 		showItemId = reader.getBoolean("showitemid", false);
+		broadcast = reader.getBoolean("broadcast", false);
 	}
 
 	public boolean isShowItemId() {
@@ -44,4 +46,8 @@ public class Configuration {
 	public boolean isSetCustomNames() {
 		return setCustomNames;
 	}
+
+    public boolean isBroadcast() {
+        return broadcast;
+    }
 }

@@ -96,7 +96,7 @@ public class TMB extends JavaPlugin{
 				pm.loadPlugin(toPut);
 				pm.enablePlugin(pm.getPlugin("NarrowtuxLib"));
 			} catch (Exception exception){
-				log.severe("[Showcase] could not load NarrowtuxLib, try again or install it manually.");
+				log.severe("[TooManyBuckets] could not load NarrowtuxLib, try again or install it manually.");
 				pm.disablePlugin(this);
 			}
 		}
@@ -185,7 +185,7 @@ public class TMB extends JavaPlugin{
 					info.stack = stack;
 					if(itemData.containsKey("indefaultview")){
 						info.inDefaultView = (Boolean) itemData.get("indefaultview");
-						log.info("Item: " + info.name + ": " + Boolean.toString(info.inDefaultView));
+//						log.info("Item: " + info.name + ": " + Boolean.toString(info.inDefaultView));
 					}
 					if(info.inDefaultView){
 						defaultView.add(info);
@@ -242,7 +242,8 @@ public class TMB extends JavaPlugin{
 	public void sendDescription(String startup){
 		PluginDescriptionFile pdf = getDescription();
 		String authors = "";
-		for(String name: pdf.getAuthors()){
+		List<String> authorlist = pdf.getAuthors();
+		for(String name: authorlist){
 			if(authors.length()>0){
 				authors+=", ";
 			}

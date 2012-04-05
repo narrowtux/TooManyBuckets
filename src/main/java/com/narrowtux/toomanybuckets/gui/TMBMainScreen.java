@@ -173,8 +173,10 @@ public class TMBMainScreen extends GenericWindow {
 						"Added to your inventory", 
 						info.stack.getType(), 
 						info.stack.getDurability(), 5000);
-				Bukkit.getServer().broadcastMessage(ChatColor.AQUA + "Player " + player.getDisplayName() + " received " + 
-						Integer.toString(info.stack.getAmount()) + " items of type " + info.name);
+				if(TMB.getInstance().getCustomConfig().isBroadcast()) {
+				    Bukkit.getServer().broadcastMessage(ChatColor.AQUA + "Player " + player.getDisplayName() + " received " + 
+				            Integer.toString(info.stack.getAmount()) + " items of type " + info.name);
+				}
 				player.getInventory().addItem(stack);
 			}
 		}
