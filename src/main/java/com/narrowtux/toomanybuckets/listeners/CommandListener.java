@@ -17,8 +17,10 @@
 
 package com.narrowtux.toomanybuckets.listeners;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+//import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import com.narrowtux.toomanybuckets.TMB;
@@ -31,16 +33,31 @@ public class CommandListener {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String args[]){
-		if(!(sender instanceof SpoutPlayer)){
-			sender.sendMessage("You need to be player!");
-			return true;
+		if (sender instanceof SpoutPlayer){
+			SpoutPlayer player = (SpoutPlayer)sender;
+			if(cmd.getName().equals("toomanybuckets") && args.length == 0){
+				plugin.openOverlay(player);
+				return true;
+			}
+			else{
+				if (args.length == 1 && args[0].equalsIgnoreCase("rml")){
+					player.sendMessage(ChatColor.RED + "rml can only be issued from the console!");
+					return true;
+				}
+				else{
+					return false;
+				}
+			}
 		}
-		SpoutPlayer player = (SpoutPlayer)sender;
-		if(cmd.getName().equals("toomanybuckets")){
-			player.closeActiveWindow();
-			plugin.openOverlay(player);
-			return true;
+		else{
+			if(args.length != 1 || !args[0].equalsIgnoreCase("rml")){
+				sender.sendMessage("You need to be player to invoke the GUI interface!");
+				return true;
+			}
+			else{
+				plugin.load(true);
+				return true;
+			}
 		}
-		return false;
 	}
 }

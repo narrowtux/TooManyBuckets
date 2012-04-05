@@ -17,19 +17,23 @@
 
 package com.narrowtux.toomanybuckets.listeners;
 
+import org.bukkit.event.EventHandler;
+//import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerListener;
+//import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.narrowtux.toomanybuckets.TMB;
 
-public class TMBPlayerListener extends PlayerListener {
-	@Override
+public class TMBPlayerListener implements Listener {
+	
+	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		TMB.getInstance().removeScreen(event.getPlayer());
 	}
 
-	@Override
+	@EventHandler
 	public void onPlayerKick(PlayerKickEvent event) {
 		TMB.getInstance().removeScreen(event.getPlayer());
 	}

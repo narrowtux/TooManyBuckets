@@ -39,6 +39,7 @@ public class ItemButton {
 	@SuppressWarnings("unused")
 	private int x, y;
 	private boolean visible;
+	
 	public ItemButton(ItemInfo type, Screen screen)
 	{
 		if(type == null)
@@ -52,7 +53,7 @@ public class ItemButton {
 	}
 
 	private void initWidgets() {
-		btn = new GenericButton();
+		btn = new GenericButton("");
 		btn.setHeight(20).setWidth(20);
 		btn.setPriority(RenderPriority.High);
 		itemWidget = new GenericItemWidget(type.stack);

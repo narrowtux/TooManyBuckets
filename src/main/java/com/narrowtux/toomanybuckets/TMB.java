@@ -39,8 +39,6 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event.Priority;
-import org.bukkit.event.Event.Type;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
@@ -48,9 +46,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.yaml.snakeyaml.Yaml;
 
 import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-import com.narrowtux.narrowtuxlib.utils.FileUtils;
+//import com.narrowtux.narrowtuxlib.utils.FileUtils;
 import com.narrowtux.toomanybuckets.gui.TMBMainScreen;
 import com.narrowtux.toomanybuckets.listeners.CommandListener;
 import com.narrowtux.toomanybuckets.listeners.TMBPlayerListener;
@@ -66,7 +65,8 @@ public class TMB extends JavaPlugin{
 	private List<ItemInfo> infos = new ArrayList<ItemInfo>();
 	private List<ItemInfo> defaultView = new ArrayList<ItemInfo>();
 	private Configuration config;
-
+	private boolean RML = false;	// command parameter to reset materials list  
+	
 	@Override
 	public void onDisable() {
 		sendDescription("disabled");
@@ -79,13 +79,12 @@ public class TMB extends JavaPlugin{
 		checkForLibs();
 		screenListener = new TMBScreenListener(this);
 		PluginManager pm = getServer().getPluginManager();
-		pm.registerEvent(Type.CUSTOM_EVENT, screenListener, Priority.Normal, this);
-		pm.registerEvent(Type.PLAYER_QUIT, playerListener, Priority.Normal, this);
-		pm.registerEvent(Type.PLAYER_KICK, playerListener, Priority.Normal, this);
+		pm.registerEvents(screenListener, this);
+		pm.registerEvents(playerListener, this);
 		sendDescription("enabled");
 		createDataFolder();
 		config = new Configuration();
-		load();
+		load(RML);
 	}
 
 	private void checkForLibs() {
@@ -136,84 +135,108 @@ public class TMB extends JavaPlugin{
 	}
 
 	@SuppressWarnings("unchecked")
-	private void load() {
-			Yaml yaml = new Yaml();
-			File infoFile = new File(getDataFolder(), "items.yml");
-			if(!infoFile.exists()){
-				try {
-					FileUtils.copyFromJarToDisk("items.yml", this, getFile());
-				} catch (IOException e) {
-				}
-			}
-			if(infoFile.exists()){
-				try {
-					FileReader reader = new FileReader(infoFile);
-					HashMap<String, Object> data = (HashMap<String, Object>) yaml.load(reader);
-					for(String name:data.keySet()){
-						HashMap<String, Object> itemData = (HashMap<String, Object>) data.get(name);
-						ItemInfo info = new ItemInfo();
-						info.name = name;
-						ItemStack stack = new ItemStack(1);
-						try{
-							stack.setTypeId((Integer) itemData.get("type"));
-						} catch (ClassCastException e){
-							String t = (String)itemData.get("type");
-							Material type = Material.getMaterial(t.toUpperCase());
-							if(type!=null)
-							{
-								stack.setType(type);
-							} else {
-								doLog("'"+t+"' was not found as an bukkit type name. Use the type-id or verify the name.");
-								continue;
-							}
+	public void load(boolean rml) {	
+		Yaml yaml = new Yaml();
+		File infoFile = new File(getDataFolder(), "items.yml");
+		String strItemId, strItemData; 
+		int itemId, itemType, ix, durability;
+		
+		if(infoFile.exists() && !rml){
+			try {
+				FileReader reader = new FileReader(infoFile);
+				HashMap<String, Object> data = (HashMap<String, Object>) yaml.load(reader);
+				for(String name:data.keySet()){
+					HashMap<String, Object> itemData = (HashMap<String, Object>) data.get(name);
+					ItemInfo info = new ItemInfo();
+					info.name = name;
+					ItemStack stack = new ItemStack(1);
+					try{
+						strItemData = (String)itemData.get("type");
+						itemId = 0;
+						ix = strItemData.indexOf(":");
+						if (ix > 0){
+							itemType = Integer.parseInt(strItemData.substring(0, ix));
+							itemId = Integer.parseInt(strItemData.substring(ix + 1));
 						}
-						stack.setAmount((Integer) itemData.get("amount"));
-						if(itemData.containsKey("data")){
-							stack.setDurability((short)(int)(Integer) itemData.get("data"));
+						else{
+							itemType = Integer.parseInt(strItemData);
 						}
-						info.stack = stack;
-						if(itemData.containsKey("indefaultview"))
-							info.inDefaultView = (Boolean) itemData.get("indefaultview");
-						if(info.inDefaultView){
-							defaultView.add(info);
+						stack.setTypeId(itemType);
+						stack.setDurability((short)itemId);
+					} 
+					catch (ClassCastException e){
+						String t = (String)itemData.get("type");
+						Material type = Material.getMaterial(t.toUpperCase());
+						if(type!=null)
+						{
+							stack.setType(type);
+						} else {
+							doLog("'"+t+"' was not found as an bukkit type name. Use the type-id or verify the name.");
+							continue;
 						}
-						if(itemData.containsKey("price")){
-							info.price = (Double)itemData.get("price");
-						}
-						if(config.isSetCustomNames()){
-							SpoutManager.getItemManager().setItemName(stack.getType(), stack.getDurability(), name);
-						}
-						infos.add(info);
 					}
-					reader.close();
-				} catch (FileNotFoundException e) {}
-				catch (IOException e) {}
-			} else {
-				doLog("You need the items.yml file to use TooManyBuckets. Generating a (very) default one.");
-				HashMap<String, Object> itemData = new HashMap<String, Object>();
-				for(Material m:Material.values()){
+					stack.setAmount((Integer) itemData.get("amount"));
+					if(itemData.containsKey("data")){
+						durability = (int)(Integer) itemData.get("data");
+						if (durability > 0){
+							stack.setDurability((short)durability);
+						}
+					}
+					info.stack = stack;
+					if(itemData.containsKey("indefaultview")){
+						info.inDefaultView = (Boolean) itemData.get("indefaultview");
+						log.info("Item: " + info.name + ": " + Boolean.toString(info.inDefaultView));
+					}
+					if(info.inDefaultView){
+						defaultView.add(info);
+					}
+					if(itemData.containsKey("price")){
+						info.price = (Double)itemData.get("price");
+					}
+					if(config.isSetCustomNames()){
+						SpoutManager.getMaterialManager().setItemName(MaterialData.getMaterial(stack.getType().getId()), name);
+					}
+					infos.add(info);
+				}
+				reader.close();
+			} 
+			catch (FileNotFoundException e) {}
+			catch (IOException e) {}
+		} else {
+			if (!rml){
+				doLog("You need the items.yml file to use TooManyBuckets. Generating a (very) default one...");
+			}
+			else {
+				doLog("Resetting materials list to default...");
+			}
+			HashMap<String, Object> itemData = new HashMap<String, Object>();
+			for(org.getspout.spoutapi.material.Material m:MaterialData.getMaterials()){
+				if (!m.getName().equalsIgnoreCase("air")){
 					HashMap<String, Object> item = new HashMap<String, Object>();
-					item.put("type", m.getId());
+					strItemId = Integer.toString(m.getRawId());
+					if (m.getRawData() > 0){
+						strItemId += ":" + Integer.toString(m.getRawData()); 
+					}
+					item.put("type", strItemId);
 					item.put("data", 0);
+					item.put("price", 0.0);
 					item.put("amount", 64);
 					item.put("indefaultview", false);
-					String name = SpoutManager.getItemManager().getItemName(m, (short) 0);
-					if(name==null)
-						name = m.toString();
-					itemData.put(name, item);
-				}
-				FileWriter writer;
-				try {
-					writer = new FileWriter(infoFile);
-					yaml.dump(itemData, writer);
-				} catch (IOException e) {
-					e.printStackTrace();
+					itemData.put(m.getName(), item);
 				}
 			}
+			FileWriter writer;
+			try {
+				writer = new FileWriter(infoFile);
+				yaml.dump(itemData, writer);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void doLog(String string) {
-		log.log(Level.INFO,"[TooManyBuckets] "+string);
+		log.log(Level.INFO, "[TooManyBuckets] "+string);
 	}
 
 	public void sendDescription(String startup){
@@ -245,7 +268,21 @@ public class TMB extends JavaPlugin{
 		}
 	}
 
+	private static short FindTypeId(String materialName){
+		short res = 0;
+		
+		for(org.getspout.spoutapi.material.Material m:MaterialData.getMaterials()){
+			if (m.getName().equalsIgnoreCase(materialName.toLowerCase()) && m.getRawData() > 0){
+				res = (short)m.getRawData();
+				break;
+			}
+		}
+		return res;
+	}
+	
 	public static List<ItemInfo> getSearchResult(String query){
+		short itemId; 
+		
 		if(query.trim().equals("")){
 			return getInstance().defaultView;
 		}
@@ -269,10 +306,14 @@ public class TMB extends JavaPlugin{
 					matches = true;
 				}
 			}
-			if(mat.name.toLowerCase().startsWith(query)){
+			if(mat.name.toLowerCase().startsWith(query) && !mat.name.equalsIgnoreCase("air")){
 				matches = true;
 			}
 			if(matches){
+				itemId = FindTypeId(mat.name);
+				if (itemId > 0){
+					mat.stack.setDurability(itemId);
+				}
 				result.add(mat);
 			}
 		}

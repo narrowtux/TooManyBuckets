@@ -21,7 +21,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+//import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 import org.getspout.spoutapi.gui.Button;
@@ -45,7 +47,7 @@ public class TMBMainScreen extends GenericWindow {
 	private List<ItemInfo> visibleItems = new ArrayList<ItemInfo>();
 	private Button clearInventoryButton, clearSearchButton, closeWindowButton;
 	private Map<GridLocation, ItemButton> buttons = new HashMap<GridLocation, ItemButton>();
-
+	
 	public class GridLocation{
 		int x, y;
 		public GridLocation(int x, int y){
@@ -62,7 +64,7 @@ public class TMBMainScreen extends GenericWindow {
 		super("Too Many Buckets", player);
 		this.player = player;
 		visibleItems = TMB.getInstance().getDefaultView();
-		initScreen();
+ 		initScreen();
 	}
 
 	private void initScreen() {
@@ -108,7 +110,7 @@ public class TMBMainScreen extends GenericWindow {
 	}
 
 	public void hide(){
-		close();
+		player.getMainScreen().closePopup();
 	}
 
 	public void handleTextFieldChange(TextField field, String newValue){
@@ -124,6 +126,8 @@ public class TMBMainScreen extends GenericWindow {
 	}
 
 	public void handleClick(Button button) {
+		int endIx, stackSize;
+		
 		if(button.equals(clearInventoryButton)){
 			player.getInventory().clear();
 			return;
@@ -132,10 +136,13 @@ public class TMBMainScreen extends GenericWindow {
 			search.setText("");
 			search.setDirty(true);
 			doSearch("");
+			return;
 		}
 		if(button.equals(closeWindowButton)){
-			close();
+			player.getMainScreen().closePopup();
+			return;
 		}
+		// if none of the other buttons is clicked, it must be an item button...
 		ItemButton ibtn = ItemButton.getByButton(button);
 		if(ibtn!=null)
 		{
@@ -149,20 +156,27 @@ public class TMBMainScreen extends GenericWindow {
 							"Bought for "+NarrowtuxLib.getMethod().format(info.price), 
 							info.stack.getType(), 
 							info.stack.getDurability(), 5000);
+					player.getInventory().addItem(stack);
 				} else {
 					player.sendNotification(ChatColor.RED+"Not enough money for", 
 							info.name, 
 							info.stack.getType(), 
 							info.stack.getDurability(), 5000);
-					return;
 				}
 			} else {
-				player.sendNotification(ChatColor.YELLOW.toString()+info.stack.getAmount()+" "+info.name, 
+				stackSize = String.valueOf(info.stack.getAmount()).length();
+				endIx = info.name.length();
+				if (endIx +  stackSize > 24){
+					endIx = 24 - stackSize;
+				}
+				player.sendNotification(ChatColor.YELLOW.toString()+info.stack.getAmount()+" "+info.name.substring(0, endIx), 
 						"Added to your inventory", 
 						info.stack.getType(), 
 						info.stack.getDurability(), 5000);
+				Bukkit.getServer().broadcastMessage(ChatColor.AQUA + "Player " + player.getDisplayName() + " received " + 
+						Integer.toString(info.stack.getAmount()) + " items of type " + info.name);
+				player.getInventory().addItem(stack);
 			}
-			player.getInventory().addItem(stack);
 		}
 	}
 
